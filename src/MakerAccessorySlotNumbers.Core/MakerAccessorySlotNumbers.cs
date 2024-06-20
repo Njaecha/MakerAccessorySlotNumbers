@@ -6,6 +6,7 @@ using BepInEx;
 using UnityEngine;
 using ChaCustom;
 using System.Reflection.Emit;
+using KKAPI.Utilities;
 
 namespace MakerAccessorySlotNumbers
 {
@@ -14,7 +15,7 @@ namespace MakerAccessorySlotNumbers
     {
         public const string PluginName = "MakerAccessorySlotNumbers";
         public const string GUID = "org.njaecha.plugins.makeraccessoryslotnumbers";
-        public const string Version = "1.0.0";
+        public const string Version = "1.0.1";
 
         public void Awake()
         {
@@ -75,10 +76,10 @@ namespace MakerAccessorySlotNumbers
 #if KKS
             cvs.chaCtrl.infoAccessory.SafeProc(cvs.nSlotNo, delegate (ListInfoBase info)
             {
-                cvs.textSlotName.text = (cvs.nSlotNo + 1).ToString("00") + " " + info.Name;
+                TranslationHelper.TranslateAsync(info.Name, t => cvs.textSlotName.text = (cvs.nSlotNo + 1).ToString("00") + " " + t);
             });
 #elif KK
-            cvs.textSlotName.text = (cvs.nSlotNo + 1).ToString("00") + " " + cvs.chaCtrl.infoAccessory[cvs.nSlotNo].Name;
+            TranslationHelper.TranslateAsync(cvs.chaCtrl.infoAccessory[cvs.nSlotNo].Name, t => cvs.textSlotName.text = (cvs.nSlotNo + 1).ToString("00") + " " + t);
 #endif
         }
 
@@ -87,10 +88,10 @@ namespace MakerAccessorySlotNumbers
 #if KKS
             cacs.chaCtrl.infoAccessory.SafeProc(i, delegate (ListInfoBase info)
             {
-                cacs.textSlotNames[i].text = (i + 1).ToString("00") + " " + info.Name;
+                TranslationHelper.TranslateAsync(info.Name, t => cacs.textSlotNames[i].text = (i + 1).ToString("00") + " " + t);
             });
 #elif KK   
-            cacs.textSlotNames[i].text = (i + 1).ToString("00") + " " + cacs.chaCtrl.infoAccessory[i].Name;
+            TranslationHelper.TranslateAsync(cacs.chaCtrl.infoAccessory[i].Name, t => cacs.textSlotNames[i].text = (i + 1).ToString("00") + " " + t);
 #endif
         }
     }
